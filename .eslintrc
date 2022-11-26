@@ -7,7 +7,7 @@
     "sort-imports": "off",
     "semi": "error",
     "quotes": ["error", "single"],
-    "no-console": "error",
+    "no-console": "off",
     "object-shorthand-properties-first": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-empty-function": "off",
