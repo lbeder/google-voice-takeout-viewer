@@ -1,0 +1,35 @@
+@import './Bootstrap';
+
+.dashboard {
+  margin: 0 auto;
+  max-width: 80rem;
+  padding: 0 1.0875rem 1.45rem;
+
+  .section {
+    margin-bottom: 1rem;
+    background: white;
+    border: 1px solid #edf2f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+
+    .title {
+      font-weight: 700;
+      border: 1px solid #edf2f9;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .nav {
+    height: 100%;
+  }
+
+  .col,
+  [class*='col-'] {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+}
