@@ -1,9 +1,12 @@
 import './App.scss';
+import Dashboard from './Dashboard';
 
 const App = () => {
   return (
     <>
-      <main></main>
+      <main>
+        <Dashboard />
+      </main>
     </>
   );
 };
