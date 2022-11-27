@@ -1,15 +1,16 @@
-import CSVReader from './CSVReader';
+import CSVReader, { Entry } from './CSVReader';
 import './Dashboard.scss';
+import DataTable from './DataTable';
 import { ParseResult } from 'papaparse';
 import { useState } from 'react';
 import { Container, Modal } from 'react-bootstrap';
 
 const Dashboard = () => {
-  const [data, setData] = useState<string[][]>([]);
+  const [data, setData] = useState<Entry[]>([]);
   const [error, setError] = useState('');
 
   const onUploadAccepted = (results: ParseResult<string[]>) => {
-    setData(results.data);
+    setData(results.data.map((r) => new Entry(r)));
   };
 
   const onErrorClose = () => setError('');
@@ -20,7 +21,9 @@ const Dashboard = () => {
         <CSVReader onUploadAccepted={onUploadAccepted} />
       </div>
 
-      <Container className="mb-3 section">{data}</Container>
+      <Container className="mb-3 section">
+        <DataTable data={data} />
+      </Container>
 
       <Modal show={!!error} onHide={onErrorClose} className="error">
         <Modal.Header closeButton className="alert alert-danger">
