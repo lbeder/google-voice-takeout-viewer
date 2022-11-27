@@ -12,6 +12,7 @@ import {
   SortingState,
   useReactTable
 } from '@tanstack/react-table';
+import { filesize } from 'filesize';
 import { useMemo, useState } from 'react';
 import { InputGroup, Pagination, Table } from 'react-bootstrap';
 
@@ -62,7 +63,10 @@ const DataTable = ({ data }: IProps) => {
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'size',
+        accessorFn: (row) => {
+          return filesize(row.size || 0);
+        },
+        id: 'size',
         header: () => <span>Size</span>,
         footer: (props) => props.column.id
       }

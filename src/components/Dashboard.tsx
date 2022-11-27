@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [error, setError] = useState('');
 
   const onUploadAccepted = (results: ParseResult<string[]>) => {
-    setData(results.data.map((r) => new Entry(r)));
+    setData(results.data.filter((r) => Object.keys(r).length > 1).map((r) => new Entry(r)));
   };
 
   const onErrorClose = () => setError('');
