@@ -7,10 +7,12 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   Table as ReactTable,
+  SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { InputGroup, Pagination, Table } from 'react-bootstrap';
 
 interface IProps {
@@ -18,6 +20,8 @@ interface IProps {
 }
 
 const DataTable = ({ data }: IProps) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const columns = useMemo<ColumnDef<Entry>[]>(
     () => [
       {
@@ -66,13 +70,65 @@ const DataTable = ({ data }: IProps) => {
     []
   );
 
+  const table = useReactTable({
+    data,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true
+  });
+
   return (
-    <DataTableReact
-      {...{
-        data,
-        columns
-      }}
-    />
+    <div>
+      <Table striped bordered hover responsive size="sm">
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <th key={header.id} colSpan={header.colSpan}>
+                    {header.isPlaceholder ? null : (
+                      <div>
+                        <div
+                          {...{
+                            className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                            onClick: header.column.getToggleSortingHandler()
+                          }}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: ' 🔼',
+                            desc: ' 🔽'
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                        {header.column.getCanFilter() ? <Filter column={header.column} table={table} /> : null}
+                      </div>
+                    )}
+                  </th>
+                );
+              })}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => {
+                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+
+      {PaginationControls(table)}
+    </div>
   );
 };
 
@@ -121,55 +177,6 @@ const PaginationControls = (table: ReactTable<Entry>) => {
         disabled={!table.getCanNextPage()}
       />
     </Pagination>
-  );
-};
-
-const DataTableReact = ({ data, columns }: { data: Entry[]; columns: ColumnDef<Entry>[] }) => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true
-  });
-
-  return (
-    <div>
-      <Table striped bordered hover responsive size="sm">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <th key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder ? null : (
-                      <div>
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getCanFilter() ? <Filter column={header.column} table={table} /> : null}
-                      </div>
-                    )}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>;
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-
-      {PaginationControls(table)}
-    </div>
   );
 };
 
