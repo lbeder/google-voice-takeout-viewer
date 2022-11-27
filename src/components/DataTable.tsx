@@ -16,11 +16,11 @@ import { filesize } from 'filesize';
 import { useMemo, useState } from 'react';
 import { InputGroup, Pagination, Table } from 'react-bootstrap';
 
-interface IProps {
+interface Props {
   data: Entry[];
 }
 
-const DataTable = ({ data }: IProps) => {
+const DataTable = ({ data }: Props) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const columns = useMemo<ColumnDef<Entry>[]>(
@@ -63,11 +63,15 @@ const DataTable = ({ data }: IProps) => {
         footer: (props) => props.column.id
       },
       {
-        accessorFn: (row) => {
-          return filesize(row.size || 0);
-        },
-        id: 'size',
-        header: () => <span>Size</span>,
+        accessorKey: 'fileSize',
+        cell: (info) => filesize(info.getValue() || 0),
+        header: () => <span>File Size</span>,
+        footer: (props) => props.column.id
+      },
+      {
+        accessorKey: 'mediaSize',
+        cell: (info) => filesize(info.getValue() || 0),
+        header: () => <span>Media Size</span>,
         footer: (props) => props.column.id
       }
     ],
