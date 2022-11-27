@@ -12,19 +12,18 @@ export class Entry {
   public name: string;
   public match: number;
   public path: string;
-  public size: string;
+  public size: number;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(result: Record<string, any>) {
     this.originalPhoneNumber = result['phone number (html)'];
     this.firstDate = moment(result['first date']);
-    console.log('this.firstDate', this.firstDate);
     this.lastDate = moment(result['last date']);
     this.phoneNumber = result['phone number (vcf)'];
     this.name = result['name (vcf)'];
     this.match = Number(result['match length']);
     this.path = result['path'];
-    this.size = result['file size'];
+    this.size = Number(result['file size']);
   }
 }
 
