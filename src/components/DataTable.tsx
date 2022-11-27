@@ -11,7 +11,7 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import { Pagination, Table } from 'react-bootstrap';
+import { InputGroup, Pagination, Table } from 'react-bootstrap';
 
 interface IProps {
   data: Entry[];
@@ -22,37 +22,44 @@ const DataTable = ({ data }: IProps) => {
     () => [
       {
         accessorKey: 'originalPhoneNumber',
-        header: () => 'Phone Number (html)',
+        header: () => <span>Phone</span>,
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'firstDate',
-        header: () => 'First Date',
+        accessorFn: (row) => row.firstDate.format('L LT'),
+        id: 'firstDate',
+        header: () => <span>First Date</span>,
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'lastDate',
-        header: () => 'Last Date',
+        accessorFn: (row) => row.lastDate.format('L LT'),
+        id: 'lastDate',
+        header: () => <span>Last Date</span>,
         footer: (props) => props.column.id
       },
       {
         accessorKey: 'name',
-        header: () => 'Name (VCF)',
+        header: () => <span>Name (VCF)</span>,
+        footer: (props) => props.column.id
+      },
+      {
+        accessorKey: 'phoneNumber',
+        header: () => <span>Phone (VCF)</span>,
         footer: (props) => props.column.id
       },
       {
         accessorKey: 'match',
-        header: () => 'Match Length',
+        header: () => <span>Match</span>,
         footer: (props) => props.column.id
       },
       {
         accessorKey: 'path',
-        header: () => 'Path',
+        header: () => <span>Path</span>,
         footer: (props) => props.column.id
       },
       {
         accessorKey: 'size',
-        header: () => 'Size',
+        header: () => <span>Size</span>,
         footer: (props) => props.column.id
       }
     ],
@@ -69,7 +76,7 @@ const DataTable = ({ data }: IProps) => {
   );
 };
 
-const Pages = (table: ReactTable<Entry>) => {
+const PaginationControls = (table: ReactTable<Entry>) => {
   let isPageNumberOutOfRange = false;
 
   const currentPage = table.getState().pagination.pageIndex + 1;
@@ -128,9 +135,8 @@ const DataTableReact = ({ data, columns }: { data: Entry[]; columns: ColumnDef<E
   });
 
   return (
-    <div className="p-2">
-      <div className="h-2" />
-      <Table>
+    <div>
+      <Table striped bordered hover responsive size="sm">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -140,11 +146,7 @@ const DataTableReact = ({ data, columns }: { data: Entry[]; columns: ColumnDef<E
                     {header.isPlaceholder ? null : (
                       <div>
                         {flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getCanFilter() ? (
-                          <div>
-                            <Filter column={header.column} table={table} />
-                          </div>
-                        ) : null}
+                        {header.column.getCanFilter() ? <Filter column={header.column} table={table} /> : null}
                       </div>
                     )}
                   </th>
@@ -166,7 +168,7 @@ const DataTableReact = ({ data, columns }: { data: Entry[]; columns: ColumnDef<E
         </tbody>
       </Table>
 
-      {Pages(table)}
+      {PaginationControls(table)}
     </div>
   );
 };
@@ -178,30 +180,33 @@ const Filter = ({ column, table }: { column: Column<any, any>; table: ReactTable
   const columnFilterValue = column.getFilterValue();
 
   return typeof firstValue === 'number' ? (
-    <div className="flex space-x-2">
+    <InputGroup className="range-filter d-flex justify-content-between">
       <input
         type="number"
         value={(columnFilterValue as [number, number])?.[0] ?? ''}
         onChange={(e) => column.setFilterValue((old: [number, number]) => [e.target.value, old?.[1]])}
         placeholder={'Min'}
-        className="w-24 border shadow rounded"
+        className="min border shadow rounded"
       />
+
       <input
         type="number"
         value={(columnFilterValue as [number, number])?.[1] ?? ''}
         onChange={(e) => column.setFilterValue((old: [number, number]) => [old?.[0], e.target.value])}
         placeholder={'Max'}
-        className="w-24 border shadow rounded"
+        className="max border shadow rounded"
       />
-    </div>
+    </InputGroup>
   ) : (
-    <input
-      type="text"
-      value={(columnFilterValue ?? '') as string}
-      onChange={(e) => column.setFilterValue(e.target.value)}
-      placeholder={'Search...'}
-      className="w-36 border shadow rounded"
-    />
+    <InputGroup className="text-filter">
+      <input
+        type="text"
+        value={(columnFilterValue ?? '') as string}
+        onChange={(e) => column.setFilterValue(e.target.value)}
+        placeholder={'Search...'}
+        className="border shadow rounded"
+      />
+    </InputGroup>
   );
 };
 

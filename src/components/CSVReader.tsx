@@ -1,12 +1,13 @@
 import './CSVReader.scss';
+import moment, { Moment } from 'moment';
 import { ParseResult } from 'papaparse';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useCSVReader } from 'react-papaparse';
 
 export class Entry {
   public originalPhoneNumber: string;
-  public firstDate: string;
-  public lastDate: string;
+  public firstDate: Moment;
+  public lastDate: Moment;
   public phoneNumber: string;
   public name: string;
   public match: number;
@@ -16,8 +17,9 @@ export class Entry {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(result: Record<string, any>) {
     this.originalPhoneNumber = result['phone number (html)'];
-    this.firstDate = result['first date'];
-    this.lastDate = result['last date'];
+    this.firstDate = moment(result['first date']);
+    console.log('this.firstDate', this.firstDate);
+    this.lastDate = moment(result['last date']);
     this.phoneNumber = result['phone number (vcf)'];
     this.name = result['name (vcf)'];
     this.match = Number(result['match length']);
