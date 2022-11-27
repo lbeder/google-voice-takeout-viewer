@@ -1,1 +1,28 @@
-@import './Bootstrap';
+@import "./Bootstrap";
+
+table {
+  th {
+    text-align: center;
+
+    .col,
+    [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    .min,
+    .max {
+      width: 4rem;
+    }
+
+    .range-filter {
+      min-width: 9rem;
+    }
+
+    .text-filter {
+      input {
+        max-width: 7rem;
+      }
+    }
+  }
+}
