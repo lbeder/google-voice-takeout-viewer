@@ -13,6 +13,7 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { filesize } from 'filesize';
+import moment from 'moment';
 import { useMemo, useState } from 'react';
 import { InputGroup, Pagination, Table } from 'react-bootstrap';
 
@@ -31,14 +32,14 @@ const DataTable = ({ data }: Props) => {
         footer: (props) => props.column.id
       },
       {
-        accessorFn: (row) => row.firstDate.format('L LT'),
-        id: 'firstDate',
+        accessorKey: 'firstDate',
+        cell: (info) => moment(info.getValue() as string).format('L LT'),
         header: () => <span>First Date</span>,
         footer: (props) => props.column.id
       },
       {
-        accessorFn: (row) => row.lastDate.format('L LT'),
-        id: 'lastDate',
+        accessorKey: 'lastDate',
+        cell: (info) => moment(info.getValue() as string).format('L LT'),
         header: () => <span>Last Date</span>,
         footer: (props) => props.column.id
       },
