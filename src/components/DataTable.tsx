@@ -27,52 +27,52 @@ const DataTable = ({ data }: Props) => {
   const columns = useMemo<ColumnDef<Entry>[]>(
     () => [
       {
-        accessorKey: 'originalPhoneNumber',
         header: () => <span>Phone</span>,
+        accessorKey: 'originalPhoneNumber',
         footer: (props) => props.column.id
       },
       {
+        header: () => <span>First Date</span>,
         accessorKey: 'firstDate',
         cell: (info) => moment(info.getValue() as string).format('L LT'),
-        header: () => <span>First Date</span>,
         footer: (props) => props.column.id
       },
       {
+        header: () => <span>Last Date</span>,
         accessorKey: 'lastDate',
         cell: (info) => moment(info.getValue() as string).format('L LT'),
-        header: () => <span>Last Date</span>,
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'name',
         header: () => <span>Name (VCF)</span>,
+        accessorKey: 'name',
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'phoneNumber',
         header: () => <span>Phone (VCF)</span>,
+        accessorKey: 'phoneNumber',
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'match',
         header: () => <span>Match</span>,
+        accessorKey: 'match',
         footer: (props) => props.column.id
       },
       {
-        accessorKey: 'path',
         header: () => <span>Path</span>,
+        accessorKey: 'path',
         footer: (props) => props.column.id
       },
       {
+        header: () => <span>File Size</span>,
         accessorKey: 'fileSize',
         cell: (info) => filesize(info.getValue() || 0),
-        header: () => <span>File Size</span>,
         footer: (props) => props.column.id
       },
       {
+        header: () => <span>Media Size</span>,
         accessorKey: 'mediaSize',
         cell: (info) => filesize(info.getValue() || 0),
-        header: () => <span>Media Size</span>,
         footer: (props) => props.column.id
       }
     ],
