@@ -61,6 +61,14 @@ const DataTable = ({ data }: Props) => {
       {
         header: () => <span>Path</span>,
         accessorKey: 'path',
+        cell: (info) => {
+          const path = info.getValue() as string;
+          return (
+            <a href={path} target="_blank" rel="noreferrer">
+              {path}
+            </a>
+          );
+        },
         footer: (props) => props.column.id
       },
       {
