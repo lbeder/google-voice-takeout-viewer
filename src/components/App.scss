@@ -1,4 +1,4 @@
-@import './Bootstrap';
+@import "./Bootstrap";
 
 body {
   font-weight: 400;
@@ -10,4 +10,8 @@ body {
 
 .modal-header.alert {
   margin-bottom: 0;
+}
+
+.container {
+  max-width: 1600px;
 }
