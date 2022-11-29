@@ -34,14 +34,14 @@ const DataTable = ({ data }: Props) => {
       },
       {
         header: () => <span>First Date</span>,
-        accessorKey: 'firstDate',
-        cell: (info) => moment(info.getValue() as string).format('L LT'),
+        accessorFn: (row) => moment(row.firstDate).format('L LT'),
+        id: 'firstDate',
         footer: (props) => props.column.id
       },
       {
         header: () => <span>Last Date</span>,
-        accessorKey: 'lastDate',
-        cell: (info) => moment(info.getValue() as string).format('L LT'),
+        accessorFn: (row) => moment(row.lastDate).format('L LT'),
+        id: 'lastDate',
         footer: (props) => props.column.id
       },
       {
