@@ -21,7 +21,7 @@ export class Entry {
   constructor(result: Record<string, any>) {
     const keysLength = Object.keys(result).length;
     if (keysLength !== Entry.ATTRIBUTES_LENGTH) {
-      throw new Error(`Invalid number of elements in the CSV: ${keysLength}`);
+      throw new Error(`Invalid CSV entry: ${result}`);
     }
 
     this.originalPhoneNumber = result['phone number (html)'];
