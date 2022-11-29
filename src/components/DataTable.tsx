@@ -54,7 +54,7 @@ const DataTable = ({ data }: Props) => {
         footer: (props) => props.column.id
       },
       {
-        header: () => <span>Match</span>,
+        header: () => <span>Match Length</span>,
         accessorKey: 'match',
         footer: (props) => props.column.id
       },
