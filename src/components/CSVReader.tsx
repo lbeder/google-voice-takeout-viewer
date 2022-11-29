@@ -53,7 +53,11 @@ const CSVReader = ({ onUploadAccepted, validator }: Props) => {
   const { CSVReader } = useCSVReader();
 
   return (
-    <CSVReader config={{ header: true, noProgressBar: true }} onUploadAccepted={onUploadAccepted} validator={validator}>
+    <CSVReader
+      config={{ header: true, skipEmptyLines: true }}
+      onUploadAccepted={onUploadAccepted}
+      validator={validator}
+    >
       {({ getRootProps, acceptedFile, ProgressBar }: CSVChildProps) => (
         <div className="csv-reader">
           <div>
