@@ -11,15 +11,25 @@ const Dashboard = () => {
   const [error, setError] = useState('');
 
   const onUploadAccepted = (results: ParseResult<string[]>, file?: File) => {
-    if (file?.name) {
-      const { name } = file;
+    try {
+      const newData = [...data, ...results.data.map((r) => new Entry(r))];
 
-      setFiles([name, ...files]);
+      if (file?.name) {
+        const { name } = file;
+
+        setFiles([name, ...files]);
+      }
+
+      setData(newData);
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+
+        return;
+      }
+
+      setError('Unexpected error');
     }
-
-    const newData = [...data, ...results.data.filter((r) => Object.keys(r).length > 1).map((r) => new Entry(r))];
-
-    setData(newData);
   };
 
   const validator = (file: File) => {
