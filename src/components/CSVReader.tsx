@@ -15,8 +15,15 @@ export class Entry {
   public fileSize: number;
   public mediaSize: number;
 
+  private static ATTRIBUTES_LENGTH = 9;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(result: Record<string, any>) {
+    const keysLength = Object.keys(result).length;
+    if (keysLength !== Entry.ATTRIBUTES_LENGTH) {
+      throw new Error(`Invalid number of elements in the CSV: ${keysLength}`);
+    }
+
     this.originalPhoneNumber = result['phone number (html)'];
     this.firstDate = moment(result['first date']);
     this.lastDate = moment(result['last date']);
