@@ -12,7 +12,6 @@ import {
   SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { filesize } from 'filesize';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
 import { InputGroup, Pagination, Table } from 'react-bootstrap';
@@ -20,6 +19,8 @@ import { InputGroup, Pagination, Table } from 'react-bootstrap';
 interface Props {
   data: Entry[];
 }
+
+const bytesToKB = (bytes: number) => Math.round((bytes * 100) / 1024) / 100;
 
 const DataTable = ({ data }: Props) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -72,15 +73,16 @@ const DataTable = ({ data }: Props) => {
         footer: (props) => props.column.id
       },
       {
-        header: () => <span>File Size</span>,
-        accessorKey: 'fileSize',
-        cell: (info) => filesize(info.getValue() || 0),
+        header: () => <span>File Size (KB)</span>,
+        accessorFn: (row) => bytesToKB(row.fileSize),
+        id: 'fileSize',
         footer: (props) => props.column.id
       },
       {
-        header: () => <span>Media Size</span>,
-        accessorKey: 'mediaSize',
-        cell: (info) => filesize(info.getValue() || 0),
+        header: () => <span>Media Size (KB)</span>,
+        accessorFn: (row) => bytesToKB(row.mediaSize),
+        id: 'mediaSize',
+        cell: (info) => bytesToKB(info.getValue() as number),
         footer: (props) => props.column.id
       }
     ],
