@@ -14,7 +14,7 @@ import {
 } from '@tanstack/react-table';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
-import { InputGroup, Pagination, Table } from 'react-bootstrap';
+import { Col, Form, InputGroup, Pagination, Row, Table } from 'react-bootstrap';
 
 interface Props {
   data: Entry[];
@@ -133,6 +133,7 @@ const DataTable = ({ data }: Props) => {
             </tr>
           ))}
         </thead>
+
         <tbody>
           {table.getRowModel().rows.map((row) => {
             return (
@@ -184,18 +185,40 @@ const PaginationControls = (table: ReactTable<Entry>) => {
   });
 
   return (
-    <Pagination>
-      <Pagination.First onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} />
-      <Pagination.Prev onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} />
+    <div className="pagination-controls">
+      <Row>
+        <Col>
+          <Pagination>
+            <Pagination.First onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} />
+            <Pagination.Prev onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} />
 
-      {pages}
+            {pages}
 
-      <Pagination.Next onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} />
-      <Pagination.Last
-        onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-        disabled={!table.getCanNextPage()}
-      />
-    </Pagination>
+            <Pagination.Next onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} />
+            <Pagination.Last
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              disabled={!table.getCanNextPage()}
+            />
+          </Pagination>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={2}>
+          <Form.Select
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => {
+              table.setPageSize(Number(e.target.value));
+            }}
+          >
+            {[10, 20, 30, 40, 50, 100].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize} results per-page
+              </option>
+            ))}
+          </Form.Select>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
