@@ -209,7 +209,7 @@ const PaginationControls = (table: ReactTable<Entry>) => {
               table.setPageSize(Number(e.target.value));
             }}
           >
-            {[10, 20, 30, 40, 50, 100].map((pageSize) => (
+            {[10, 50, 100, 200, 1000, 10000].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 Show {pageSize} results per page
               </option>
