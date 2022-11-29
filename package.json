@@ -4,6 +4,7 @@
   "description": "Google Voice Merger App",
   "author": "leonid.beder@gmail.com",
   "license": "MIT",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
