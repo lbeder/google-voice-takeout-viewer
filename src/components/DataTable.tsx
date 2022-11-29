@@ -82,7 +82,6 @@ const DataTable = ({ data }: Props) => {
         header: () => <span>Media Size (KB)</span>,
         accessorFn: (row) => bytesToKB(row.mediaSize),
         id: 'mediaSize',
-        cell: (info) => bytesToKB(info.getValue() as number),
         footer: (props) => props.column.id
       }
     ],
@@ -212,7 +211,7 @@ const PaginationControls = (table: ReactTable<Entry>) => {
           >
             {[10, 20, 30, 40, 50, 100].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
-                Show {pageSize} results per-page
+                Show {pageSize} results per page
               </option>
             ))}
           </Form.Select>
