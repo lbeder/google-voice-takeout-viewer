@@ -70,6 +70,7 @@ const DataTable = ({ data }: Props) => {
             </a>
           );
         },
+        size: 500,
         footer: (props) => props.column.id
       },
       {
@@ -108,7 +109,15 @@ const DataTable = ({ data }: Props) => {
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <th key={header.id} colSpan={header.colSpan}>
+                  <th
+                    {...{
+                      key: header.id,
+                      colSpan: header.colSpan,
+                      style: {
+                        minWidth: header.getSize()
+                      }
+                    }}
+                  >
                     {header.isPlaceholder ? null : (
                       <div>
                         <div
@@ -138,7 +147,18 @@ const DataTable = ({ data }: Props) => {
             return (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
-                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>;
+                  return (
+                    <td
+                      {...{
+                        key: cell.id,
+                        style: {
+                          minWidth: cell.column.getSize()
+                        }
+                      }}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  );
                 })}
               </tr>
             );
