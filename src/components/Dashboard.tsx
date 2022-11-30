@@ -3,11 +3,16 @@ import './Dashboard.scss';
 import DataTable from './DataTable';
 import { ParseResult } from 'papaparse';
 import { useState } from 'react';
-import { Container, ListGroup, Modal } from 'react-bootstrap';
+import { Badge, Container, ListGroup, Modal } from 'react-bootstrap';
+
+interface IndexFile {
+  name: string;
+  count: number;
+}
 
 const Dashboard = () => {
   const [data, setData] = useState<Entry[]>([]);
-  const [files, setFiles] = useState<string[]>([]);
+  const [files, setFiles] = useState<IndexFile[]>([]);
   const [error, setError] = useState('');
 
   const onUploadAccepted = (results: ParseResult<string[]>, file?: File) => {
@@ -17,7 +22,7 @@ const Dashboard = () => {
       if (file?.name) {
         const { name } = file;
 
-        setFiles([name, ...files]);
+        setFiles([{ name, count: results.data.length }, ...files]);
       }
 
       setData(newData);
@@ -30,16 +35,6 @@ const Dashboard = () => {
 
       setError('Unexpected error');
     }
-  };
-
-  const validator = (file: File) => {
-    if (files.includes(file.name)) {
-      setError(`File ${file.name} already exists`);
-
-      return true;
-    }
-
-    return false;
   };
 
   const onErrorClose = () => setError('');
@@ -61,7 +56,14 @@ const Dashboard = () => {
       return <></>;
     }
 
-    const items = files.map((f) => <ListGroup.Item key={f}>{f}</ListGroup.Item>);
+    const items = files.map((f) => (
+      <ListGroup.Item key={f.name}>
+        {f.name}{' '}
+        <Badge bg="primary" pill>
+          {f.count}
+        </Badge>
+      </ListGroup.Item>
+    ));
 
     return (
       <Container className="mb-3 section">
@@ -74,7 +76,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="mb-3 section">
-        <CSVReader onUploadAccepted={onUploadAccepted} validator={validator} />
+        <CSVReader onUploadAccepted={onUploadAccepted} />
       </div>
 
       {filesList()}
