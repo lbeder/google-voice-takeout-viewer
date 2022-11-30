@@ -38,7 +38,7 @@ export class Entry {
 
 interface Props {
   onUploadAccepted: (results: ParseResult<string[]>) => void;
-  validator: (file: File) => void;
+  validator?: (file: File) => void;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
