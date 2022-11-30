@@ -1,6 +1,6 @@
 .dashboard {
   margin: 0 auto;
-  max-width: 140rem;
+  max-width: none;
   padding: 0 3rem 1.45rem;
 
   .section {
@@ -9,7 +9,7 @@
     border-radius: 0.5rem;
     box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     padding: 1rem;
-    max-width: 140rem;
+    max-width: none;
 
     .title {
       font-weight: 700;
