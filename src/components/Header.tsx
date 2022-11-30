@@ -14,7 +14,7 @@ const Header = () => {
               </div>
             </Col>
             <Col md="auto">
-              <h1 className="header-title">Google Voice Merger App</h1>
+              <h1 className="header-title">Google Voice Takeout Viewer</h1>
               <h6 className="header-version">{process.env.REACT_APP_VERSION}</h6>
             </Col>
           </Row>
