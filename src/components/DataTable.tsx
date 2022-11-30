@@ -252,7 +252,16 @@ const Filter = ({ column, table }: { column: Column<any, any>; table: ReactTable
       <input
         type="number"
         value={(columnFilterValue as [number, number])?.[0] ?? ''}
-        onChange={(e) => column.setFilterValue((old: [number, number]) => [e.target.value, old?.[1]])}
+        onChange={(e) => {
+          const min = Number(e.target.value);
+          if (min < 0) {
+            e.stopPropagation();
+
+            return;
+          }
+
+          column.setFilterValue((old: [number, number]) => [e.target.value, old?.[1]]);
+        }}
         placeholder={'Min'}
         className="min border shadow rounded"
       />
@@ -260,7 +269,16 @@ const Filter = ({ column, table }: { column: Column<any, any>; table: ReactTable
       <input
         type="number"
         value={(columnFilterValue as [number, number])?.[1] ?? ''}
-        onChange={(e) => column.setFilterValue((old: [number, number]) => [old?.[0], e.target.value])}
+        onChange={(e) => {
+          const max = Number(e.target.value);
+          if (max < 0) {
+            e.stopPropagation();
+
+            return;
+          }
+
+          column.setFilterValue((old: [number, number]) => [old?.[0], e.target.value]);
+        }}
         placeholder={'Max'}
         className="max border shadow rounded"
       />
