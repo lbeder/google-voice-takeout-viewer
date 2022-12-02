@@ -18,6 +18,10 @@ table {
     .range-filter {
       min-width: 9rem;
     }
+
+    .text-filter input {
+      width: 100% !important;
+    }
   }
 }
 
