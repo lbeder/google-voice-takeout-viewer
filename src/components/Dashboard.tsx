@@ -8,6 +8,7 @@ import { Badge, Container, ListGroup, Modal } from 'react-bootstrap';
 interface IndexFile {
   name: string;
   count: number;
+  label: string;
 }
 
 const Dashboard = () => {
@@ -17,15 +18,19 @@ const Dashboard = () => {
 
   const onUploadAccepted = (results: ParseResult<string[]>, file?: File) => {
     try {
-      const newData = [...data, ...results.data.map((r) => new Entry(r))];
+      const newData = results.data.map((r) => new Entry(r));
 
       if (file?.name) {
         const { name } = file;
 
-        setFiles([{ name, count: results.data.length }, ...files]);
+        // Extract the label from the path of the first entry, since all entries have the same label in any case
+        const path = newData[0].path;
+        const label = path.split('/')[0] || path.split('\\')[0];
+
+        setFiles([{ name, count: results.data.length, label }, ...files]);
       }
 
-      setData(newData);
+      setData([...data, ...newData]);
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -61,6 +66,9 @@ const Dashboard = () => {
         {f.name}{' '}
         <Badge bg="primary" pill>
           {f.count}
+        </Badge>
+        <Badge bg="success" pill>
+          {f.label}
         </Badge>
       </ListGroup.Item>
     ));
