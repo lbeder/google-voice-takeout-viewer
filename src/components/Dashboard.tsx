@@ -25,7 +25,10 @@ const Dashboard = () => {
 
         // Extract the label from the path of the first entry, since all entries have the same label in any case
         const path = newData[0].path;
-        const label = path.split('/')[0] || path.split('\\')[0];
+        let label = path.split('/')[0];
+        if (label === path) {
+          label = path.split('\\')[0];
+        }
 
         setFiles([{ name, count: results.data.length, label }, ...files]);
       }
