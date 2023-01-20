@@ -39,8 +39,7 @@
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-papaparse": "^4.1.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^3.1.1"
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",
