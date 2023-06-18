@@ -1,8 +1,8 @@
 {
   "name": "google-voice-takeout-viewer",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Google Voice Takeout Viewer",
-  "author": "leonid.beder@gmail.com",
+  "author": "Leonid Beder <leonid@lbeder.com>",
   "license": "MIT",
   "homepage": ".",
   "scripts": {
@@ -31,32 +31,32 @@
     ]
   },
   "dependencies": {
-    "@tanstack/react-table": "^8.7.6",
-    "bootstrap": "^5.2.3",
+    "@tanstack/react-table": "^8.9.2",
+    "bootstrap": "^5.3.0",
     "moment": "^2.29.4",
-    "node-sass": "^8.0.0",
+    "node-sass": "^9.0.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.7.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-papaparse": "^4.1.0",
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "eslint": "^8.32.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/node": "^20.3.1",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
+    "eslint": "^8.43.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-react": "^1.1.7",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.8",
     "prettier-package-json": "^2.8.0",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.3"
   }
 }
