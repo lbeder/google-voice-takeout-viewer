@@ -1,6 +1,6 @@
 {
   "name": "google-voice-takeout-viewer",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Google Voice Takeout Viewer",
   "author": "Leonid Beder <leonid@lbeder.com>",
   "license": "MIT",
