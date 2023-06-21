@@ -34,14 +34,14 @@ const DataTable = ({ data }: Props) => {
       },
       {
         header: () => <span>First Date (UTC)</span>,
-        accessorFn: (row) => moment(row.firstDate).format('L LT'),
-        id: 'firstDate',
+        accessorKey: 'firstDate',
+        cell: (data) => moment(data.getValue() as string).format('L LT'),
         footer: (props) => props.column.id
       },
       {
         header: () => <span>Last Date (UTC)</span>,
-        accessorFn: (row) => moment(row.lastDate).format('L LT'),
-        id: 'lastDate',
+        accessorKey: 'lastDate',
+        cell: (data) => moment(data.getValue() as string).format('L LT'),
         footer: (props) => props.column.id
       },
       {
@@ -62,8 +62,8 @@ const DataTable = ({ data }: Props) => {
       {
         header: () => <span>Path</span>,
         accessorKey: 'path',
-        cell: (info) => {
-          const path = info.getValue() as string;
+        cell: (data) => {
+          const path = data.getValue() as string;
           return (
             <a href={path} target="_blank" rel="noreferrer">
               {path}
