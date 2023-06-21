@@ -222,7 +222,7 @@ const PaginationControls = (table: ReactTable<Entry>) => {
         </Col>
       </Row>
       <Row>
-        <Col md={2}>
+        <Col md={3}>
           <Form.Select
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
