@@ -36,4 +36,4 @@ open ./build/index.html
 start ./build/index.html
 ```
 
-Please note that the path of each log is relative to its output folder, therefore if you want to open them via the static `build/index.html` page, you should copy the output folder to the `build` folder (otherwise the relative URLs won't point to te right location on the local filesystem). Due to this limitation, opening these paths in development mode isn't supported.
+Please note that the path of each log is relative to its output folder, therefore if you want to open them via the static `build/index.html` page, you should copy the output folder to the `build` folder (otherwise the relative URLs won't point to the right location on the local filesystem). Due to this limitation, opening these paths in development mode isn't supported.
